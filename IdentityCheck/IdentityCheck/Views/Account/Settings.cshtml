@@ -1,0 +1,50 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.Extensions.Options
+
+@model string
+@inject IDateTimeService DateTimeService
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+}
+
+<h3>User settings</h3>
+
+<h5>Time Zone</h5>
+<form asp-controller="Account" asp-action="Settings" method="post">
+    <div class="form-group">
+        <select name="timeZoneId" class="form-control" onchange="this.form.submit();">
+            @foreach (var timezone in DateTimeService.GetAvailableTimeZones())
+            {
+                @if (timezone.Id == Model)
+                {
+                    <option value="@timezone.Id" selected>@timezone.DisplayName</option>
+                }
+                else
+                {
+                    <option value="@timezone.Id">@timezone.DisplayName</option>
+                }
+
+            }
+        </select>
+    </div>
+</form>
+
+<h5>Language</h5>
+<div title="@Localizer["Request culture provider:"] @requestCulture?.Provider?.GetType().Name">
+    <form id="selectLanguage" asp-controller="Account" asp-action="SetLanguage" asp-route-user="@User.Identity" method="post" role="form">
+        <div class="form-group">
+            <select name="culture" onchange="this.form.submit();" asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                    asp-items="cultureItems" class="form-control" title="@Localizer["Select a language"]"></select>
+        </div>
+    </form>
+
+    <a class="btn btn-danger" asp-controller="Home" asp-action="Index" role="button">Back</a>
+</div>

@@ -1,0 +1,32 @@
+﻿@model LoginRequest
+@inject IViewLocalizer Localizer
+
+@{
+    ViewBag.Title = "Login";
+}
+
+
+<h1>@Localizer["Login to your account"]</h1>
+<form asp-controller="Account" asp-action="Login" method="post">
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" asp-for="@Model.Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="password">@Localizer["Password"]</label>
+        <input type="password" asp-for="@Model.Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">@Localizer["Login"]</button>
+
+    <a class="btn btn-danger" href="/Google-login">
+        <i class="fab fa-google"></i>@Localizer["Login With Google"]
+    </a>
+</form>
+@foreach (var error in Model.ErrorMessages)
+{
+    <span class="text-danger">@Localizer[error]</span>
+}
+
+

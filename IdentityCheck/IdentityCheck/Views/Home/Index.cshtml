@@ -1,0 +1,98 @@
+﻿@using ReflectionIT.Mvc.Paging;
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@inject IDateTimeService DateTimeService
+@inject IUserService UserService
+@inject IViewLocalizer Localizer
+
+@model IndexViewModel
+
+@{
+    var user = await UserService.GetCurrentUserAsync();
+    ViewBag.Title = "Home";
+}
+
+<h1 class="h1 text-center" style="padding:20px">@Localizer["My posts"]</h1>
+
+<form asp-controller="Home" asp-action="Index" method="get" clas>
+    <div class="form-group col-md-offset-1">
+        <div class="form-row">
+            <div class="col">
+                <input type="text" asp-for="@Model.QueryParams.Title" class=form-control placeholder=@Localizer["Search by title"] />
+            </div>
+            <div class="col">
+                <input type="text" asp-for="@Model.QueryParams.Description" class="form-control" placeholder=@Localizer["Search by descripton"] />
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">@Localizer["Search"]</button>
+                <a asp-action="@Model.ActionName" class="btn btn-danger" role="button">@Localizer["Clear filters"]</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+<table class="table table-striped">
+
+    @if (Model != null)
+    {
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">@Localizer["Title"]</th>
+                <th scope="col">@Localizer["Description"]</th>
+                <th scope="col">@Localizer["Date"]</th>
+                <th scope="col">@Localizer["Delete"]</th>
+
+                @if (User.IsInRole("SuperUser"))
+                {
+                    <th scope="col">@Localizer["Edit"]</th>
+                    <th scope="col">@Localizer["Add Image"]</th>
+                }
+                <th scope="col">@Localizer["Time span"]</th>
+
+            </tr>
+        </thead>
+        @foreach (var post in Model.PagingList)
+        {
+            <tr>
+                <td><a asp-controller="Post" asp-action="Post" asp-route-postid="@post.PostId">@post.Title</a></td>
+                <td>@post.Description</td>
+                <td>@DateTimeService.GetLocalDateTime(user, post.CreatedAt)</td>
+                <td>
+                    <form asp-controller="Post" asp-action="Delete" asp-route-id="@post.PostId" method="post">
+                        <button type="submit" class="btn btn-danger">@Localizer["Delete"]</button>
+                    </form>
+                </td>
+
+                @if (User.IsInRole("SuperUser"))
+                {
+                    <td>
+                        <a role="button" class="btn btn-primary" asp-controller="Post" asp-action="Edit" asp-route-postid="@post.PostId">@Localizer["Edit"]</a>
+                    </td>
+
+                    <td>
+                        <a role="button" class="btn btn-primary" asp-controller="Post" asp-action="AddImage" asp-route-postid="@post.PostId">@Localizer["Add Image"]</a>
+                    </td>
+                }
+                <td>@DateTimeService.TimeAgo(user, post.CreatedAt)</td>
+            </tr>
+        }
+    }
+</table>
+
+<div class="pagintaion-row">
+    @for (int i = 1; i <= Model.PagingList.PageCount; i++)
+    {
+        <a role="button" class="btn btn-primary"
+           asp-action="@Model.ActionName"
+           asp-route-title="@Model.QueryParams.Title"
+           asp-route-description="@Model.QueryParams.Description"
+           asp-route-page="@i">@i</a>
+    }
+</div>
+
+
+
+
+
+
+
+

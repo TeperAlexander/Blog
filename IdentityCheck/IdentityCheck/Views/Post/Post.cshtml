@@ -1,0 +1,28 @@
+﻿@model PostViewModel
+
+
+<h1>@Model.Title</h1>
+<h3>By @Model.Author.UserName - @Model.CreatedAt</h3>
+
+<article>
+    <p>@Model.Description</p>
+</article>
+
+
+@if (Model.Images.Count != 0)
+{
+    <h1>Images</h1>
+    await Html.RenderPartialAsync("_GalleryPartial");   
+}
+else
+{
+    <h3>No image found</h3>
+}
+
+<br />
+
+<a class="btn btn-danger" asp-controller="Home" asp-action="Index" role="button">Back</a>
+
+
+
+

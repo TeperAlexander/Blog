@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+}
+
+<h3>Add a new post </h3>
+
+@{
+    ViewData["Action"] = "Add";
+    await Html.RenderPartialAsync("_PostPartial");
+}
+

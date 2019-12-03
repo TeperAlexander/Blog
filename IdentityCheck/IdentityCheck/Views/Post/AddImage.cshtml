@@ -1,0 +1,13 @@
+﻿@model ImageViewModel
+
+    <form asp-action="AddImage" asp-route-postid="@Model.PostId" asp-controller="Post" method="post" class="md-form" enctype="multipart/form-data">
+        <label for="imageList">Upload images</label>
+        <input type="file" name="images" multiple /><br />
+        <small class="form-text text-muted">Accepted formats: PNG, JPG - Filesize: max. 4 MB</small>
+        <button type="submit" class="btn btn-primary">Add images</button>
+    </form>
+
+@foreach(var error in Model.WrongFiles)
+{
+   <span class="text-danger">@error.ContentType is not supported </span>
+}

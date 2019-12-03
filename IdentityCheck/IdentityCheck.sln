@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityCheck", "IdentityCheck\IdentityCheck.csproj", "{A488EB8D-DFC6-455B-9DD1-602B1121C154}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentiyCheckTest", "IdentiyCheckTest\IdentiyCheckTest.csproj", "{990830E8-44BC-4718-9820-8095E8AB3FEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A488EB8D-DFC6-455B-9DD1-602B1121C154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A488EB8D-DFC6-455B-9DD1-602B1121C154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A488EB8D-DFC6-455B-9DD1-602B1121C154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A488EB8D-DFC6-455B-9DD1-602B1121C154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{990830E8-44BC-4718-9820-8095E8AB3FEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{990830E8-44BC-4718-9820-8095E8AB3FEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{990830E8-44BC-4718-9820-8095E8AB3FEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{990830E8-44BC-4718-9820-8095E8AB3FEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {803F596E-B004-41B0-81D3-112882C39408}
+	EndGlobalSection
+EndGlobal

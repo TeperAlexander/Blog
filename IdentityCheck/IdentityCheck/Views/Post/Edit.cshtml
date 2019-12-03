@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<h3>Edit the post</h3>
+
+@{
+    ViewData["Action"] = "Edit";
+    await Html.RenderPartialAsync("_PostPartial");
+}

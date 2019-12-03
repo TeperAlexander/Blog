@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> signInManager
+@inject IViewLocalizer Localizer
+
+@if (signInManager.IsSignedIn(User))
+{
+
+    <a class="navbar-brand" asp-controller="Home" asp-action="Index">CA</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto my-2 my-lg-0">
+
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Post" asp-action="Add" style="color:whitesmoke">@Localizer["Add post"]</a>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:whitesmoke">
+                    @User.Identity.Name
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Settings">@Localizer["Settings"]</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" asp-controller="Account" asp-action="Logout">@Localizer["Logout"]</a>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+}
+else
+{
+    <a class="navbar-brand" asp-controller="Account" asp-action="Register">@Localizer["Register"]</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+}
